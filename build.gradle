@@ -1,0 +1,53 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '7.1.0'
+}
+
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+def cypherDSLVersion = '2023.2.1'
+
+mainClassName = 'org.example.Main'
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': mainClassName,
+                'Class-Path': 'lib/dependency1.jar lib/dependency2.jar'
+        )
+    }
+}
+
+dependencies {
+    implementation "org.neo4j:neo4j-cypher-dsl-parser:${cypherDSLVersion}"
+    implementation "org.neo4j:neo4j-cypher-dsl:${cypherDSLVersion}"
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+
+shadowJar {
+    manifest {
+        attributes 'Main-Class': mainClassName
+    }
+    archiveName = 'CustomLambdaRuntime.jar'
+}
