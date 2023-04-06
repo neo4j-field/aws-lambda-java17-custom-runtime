@@ -55,6 +55,9 @@ docker push $AWSACCOUNTID.dkr.ecr.$REGION.amazonaws.com/my-repository:tag
 
 ```
 
+#### Create Lambda Function with Container Image 
+
+*  Best to use AWS Console for this
 #### Invoke Function to test
 
 
